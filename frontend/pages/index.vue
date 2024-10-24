@@ -1,0 +1,117 @@
+<template>
+  <main class="px-10 overflow-y-auto dark:bg-slate-800 page xl:px-0">
+    <section
+      class="container mx-auto flex flex-col gap-5 items-center justify-center mt-6 scroll-mt-[120px] min-h-screen"
+    >
+      <h2 class="text-2xl font-display">Nuevas</h2>
+      <UCarousel 
+        class="px-10"
+        v-slot="{ item, index }"
+        :items="items"
+        :ui="{
+          wrapper: 'w-full',
+          container: 'gap-5',
+          item: 'h-[300px] w-[150px]',
+        }"
+        arrows
+      >
+        <CarouselCard :item="item" :index="index" />
+      </UCarousel>
+
+      <h2 class="text-2xl font-display">Populares</h2>
+      <UCarousel 
+        class="px-10"
+        v-slot="{ item, index }"
+        :items="items"
+        :ui="{
+          wrapper: 'w-full',
+          container: 'gap-5',
+          item: 'h-[300px] w-[150px]',
+        }"
+        arrows
+      >
+        <CarouselCard :item="item" :index="index" />
+      </UCarousel>
+    </section>
+  </main>
+</template>
+
+<script setup lang="ts">
+const client = useSupabaseAuthClient()
+const user = useSupabaseUser()
+const loading = ref(false)
+
+const logout = async () => {
+  loading.value = true
+  const { error } = await client.auth.signOut()
+  if (error) {
+    loading.value = false
+    return alert('Something went wrong !')
+  }
+}
+
+useHead({
+  title: 'supaAuth',
+  meta: [
+    { name: 'description', content: 'Authentication template with email and password, using Supabase. If you want to a quick start to your next Nuxt3 app, please feel free to use this template.' }
+  ]
+})
+
+definePageMeta({
+  layout: "home"
+})
+
+const items = [
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+  {
+    name: 'Joker',
+    poster: { src: "/img/joker.jpg" },
+    rating: 4.7,
+  },
+];
+
+</script>
